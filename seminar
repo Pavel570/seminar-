@@ -1,0 +1,113 @@
+using System;
+
+namespace seminar
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            //Замена значений переменных 
+            var a = 12;
+            var b = 114;
+            Change(ref a, ref b);
+
+            //Развернуть число
+            var num = 123;
+            reversal(ref num);
+
+            //время
+            var time = 16;
+            times(ref time);
+
+            //делитель
+            var n = 150;
+            var x = 3;
+            var y = 5;
+            nums(n, x, y);
+
+            //високосные года
+            var year1 = 1;
+            var year2 = 6006;
+            var l = 0;
+            year(year1, year2,ref l);
+
+            //Расстояние от точки до прямой 
+            double[] cd = new double[] {5, 7, 2, 3};
+            double[] dd = new double[] {5, 4};
+            Console.WriteLine(dotdistance(dd[0], dd[1],cd[0], cd[1], cd[2], cd[3]));
+        }
+        static void Change(ref int a,ref int b)
+        {
+            var space = a;
+            a = b;
+            b = space;
+            /* 2ой вариант
+             * a = a + b
+             * b = a - b
+             * a = a - a
+             */
+        }
+        static void reversal(ref int num)
+        {
+            string num2 = "";
+            for (int i = 0; i < 3; i++)
+            {
+                num2 += Convert.ToString(num % 10);
+                num /= 10; 
+            }
+            num = int.Parse(num2);
+        }
+        static int times(ref int time)
+        {
+            time *= 30;
+            if (time < 180)
+            {
+                return time;
+            }
+            if (time > 180)
+            {
+                time = Math.Abs(time - 360);
+                return time;
+            }
+            if (time == 180)
+            {
+                return time;
+            }
+            return 0;
+        }
+        static int nums(int a, int b, int c)
+        {
+            int k = 0;
+            for (int i = 1; i <= a; i++)
+            {
+                if (i % b == 0 || i % c == 0)
+                {
+                    k = k + 1;
+                }
+            }
+            return k;
+        }
+        static int year(int a, int b, ref int l)
+        {
+            if (a != b)
+            {
+                if (a % 4 == 0)
+                {
+                    l++;
+                }
+                year(a + 1, b,ref l);
+            }
+            return l;
+        }
+        static double dotdistance(double x3, double y3, double x1, double y1, double x2, double y2)
+        {
+            var xab = x2 - x1;
+            var yab = y2 - y1;
+            var a = 1 / xab;
+            var b = -1 / yab;
+            var c = ((y1 * xab) - (x1 * yab)) / (xab * yab);
+            var d = Math.Abs((a * x3) + (b * y3) + c) / Math.Sqrt((a*a) + (b*b));
+            return d;
+        }
+    }
+}
